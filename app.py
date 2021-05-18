@@ -2,6 +2,7 @@ import os
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 
 DB_HOST = os.environ.get("DB_HOST", "localhost")
 DB_NAME = os.environ.get("DB_NAME", "postgresdb")
@@ -10,11 +11,11 @@ DB_PASS = os.environ.get("DB_PASS", "postgres")
 DB_URI = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
 
 app = Flask(__name__)
-
 app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+CORS(app)
 
 
 class Campaign(db.Model):
@@ -50,6 +51,7 @@ def create_campaign():
     errors = campaign_schema.validate(request.json)
     if errors:
         return jsonify({"errors": errors}), 400
+
     campaign = Campaign(**request.json)
     db.session.add(campaign)
     db.session.commit()
