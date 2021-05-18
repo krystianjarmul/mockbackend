@@ -50,6 +50,7 @@ def create_campaign():
     errors = campaign_schema.validate(request.json)
     if errors:
         return jsonify({"errors": errors}), 400
+    
     campaign = Campaign(**request.json)
     db.session.add(campaign)
     db.session.commit()
