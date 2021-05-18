@@ -31,6 +31,7 @@ class Campaign(db.Model):
     def __repr__(self):
         return self.name
 
+    
 class CampaignSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Campaign
