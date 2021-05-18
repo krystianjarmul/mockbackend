@@ -30,6 +30,7 @@ class Campaign(db.Model):
     def __repr__(self):
         return self.name
 
+
 class CampaignSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Campaign
@@ -66,6 +67,9 @@ def retrieve_campaign(pk):
 
     result = campaign_schema.dump(campaign)
     return jsonify(result), 200
+
+
+db.create_all()
 
 
 @app.route('/campaigns/<int:pk>', methods=['PUT'])
@@ -109,5 +113,4 @@ def destroy_campaign(pk):
 
 
 if __name__ == "__main__":
-    db.create_all()
     app.run()
