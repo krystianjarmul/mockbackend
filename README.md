@@ -1,5 +1,5 @@
 # mockbackend
-  simple api created for my brother's recruitment task on jr frontend dev role
+  simple API created as support service for my brother's recruitment task on jr frontend dev role
 
 ## Requirements
 - docker/docker-compose
